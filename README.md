@@ -6,10 +6,23 @@
 git clone https://github.com/ChokoSK8/WebScraping_Python-Elasticsearch-Docker.git
 ```
 ### Configure your .env file in srcs directory
+copy this file in srcs/, then add an elastic_password and a cluster_name
 ```
-vim srcs/.env
+# Password for the 'elastic' user (at least 6 characters)
+ELASTIC_PASSWORD=
+
+# Version of Elastic products
+STACK_VERSION=8.6.1
+
+# Set the cluster name
+CLUSTER_NAME=
+
+# Port to expose Elasticsearch HTTP API to the host
+ES_PORT=9200
+
+# Increase or decrease based on the available host memory (in bytes)
+MEM_LIMIT=1073741824
 ```
-![carbon-2](https://user-images.githubusercontent.com/59646307/217865189-b027720e-8b12-4bd9-ab81-7049486a03d0.png)
 ## Running the project
 ```
 make
