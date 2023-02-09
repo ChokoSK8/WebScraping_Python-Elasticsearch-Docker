@@ -1,0 +1,54 @@
+version: "3.5"
+
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - ${ES_PORT}:9200
+    environment:
+      - cluster.name=${CLUSTER_NAME}
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - ingest.geoip.downloader.enabled=false
+    mem_limit: ${MEM_LIMIT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - tech_crunch
+    healthcheck:
+      test: [
+        'CMD-SHELL',
+		'curl -s -X GET "localhost:9200/_cluster/health?wait_for_status=yellow&timeout=10s&pretty" | grep -q "\"status\" : \"green\""'
+      ]
+      timeout: 30s
+      interval: 30s
+      retries: 10
+
+  python:
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    container_name: python
+    build: ./requirements/Python
+    image: python
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    networks:
+      - tech_crunch
+
+networks:
+  tech_crunch:
+    name: tech_crunch
+    driver: bridge
+
+volumes:
+  esdata:
+    name: esdata
+    driver: local
