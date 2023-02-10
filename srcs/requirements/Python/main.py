@@ -120,7 +120,7 @@ def make_list_of_tuples_by_category(href):
 			updated_time = updated_time['content'][:10]
 		else:
 			updated_time = "None"
-		link = base_url + article['href']
+		link = article['href']
 		list_of_tuples.append(tuple([title, author, published_time, updated_time, description, link]))
 	print(href + " has finished")
 	return list_of_tuples
