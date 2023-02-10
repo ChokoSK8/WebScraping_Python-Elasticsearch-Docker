@@ -25,11 +25,11 @@ services:
     healthcheck:
       test: [
         'CMD-SHELL',
-        'curl -s -X GET "localhost:9200/_cluster/health?wait_for_status=yellow&timeout=10s&pretty" | grep -q "\"status\" : \"green\""'
+        'curl -s -X GET "localhost:9200/_cluster/health?wait_for_status=yellow&timeout=30s&pretty" | grep -q "\"status\" : \"green\""'
       ]
       timeout: 30s
       interval: 30s
-      retries: 10
+      retries: 5
 
   python:
     depends_on:
@@ -42,6 +42,17 @@ services:
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
     networks:
       - tech_crunch
+
+  flask:
+    depends_on:
+      python:
+        condition: service_completed_successfully
+    container_name: flask
+    build: ./requirements/Flask
+    image: flask
+    ports:
+      - 5000:5000
+
 
 networks:
   tech_crunch:

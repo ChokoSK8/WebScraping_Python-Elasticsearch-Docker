@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{{category}}{% endblock %}
+{% block content %}
+<ul class="list-group list-group-flush">
+	{% for doc in docs %}
+	<li class="list-group-item list-group-item-success">
+		<a href={{doc['_source']['link']}} class="list-group-item flex-column align-items-start list-group-item-info">
+			<div class="d-flex w-100 justify-content-between">
+				<h5 class="mb-1">{{doc['_source']['title']}}</h5>
+				<small class="text-muted">{{doc['_source']['published_time']}}</small>
+			</div>
+			<p class="mb-1">{{doc['_source']['description']}}</p>
+			<small class="text-muted">{{doc['_source']['author']}}</small>
+		</a>
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}
