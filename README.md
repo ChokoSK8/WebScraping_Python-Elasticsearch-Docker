@@ -28,14 +28,12 @@ MEM_LIMIT=1073741824
 make
 ```
 ## Check your database
-Once the python container exit with status 0, and your elasticsearch container is still running, you can:
+When the flask service is running, you can:
 ### list your indexes
+tape in your browser this address:
 ```
-curl http://localhost:9200/_aliases
+localhost:5000
 ```
-### display documents in an index
-```
- curl -X GET "localhost:9200/your_index/_search?pretty" -H 'Content-Type: application/json'
-```
-
+### access your documents ordered by category
+click on the category you want
 
