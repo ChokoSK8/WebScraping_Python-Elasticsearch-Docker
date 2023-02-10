@@ -1,5 +1,5 @@
 # What does it do ?
-  We scrap data from "www.techcrunch.com". We seek for informations about articles from any category. We collect them in dataframes. Then we insert them to the Elasticsearch database.
+  We scrap data from "www.techcrunch.com". We seek for informations about articles from any category. We collect them in dataframes. Then we insert them to the Elasticsearch database. We can search your data with a Flask API.
 # Installation
 ### Clone the repo
 ```
