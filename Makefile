@@ -15,6 +15,6 @@ clean:
 	docker-compose -f $(YML) rm -f
 
 fclean:	clean
-	rm -rf srcs/volumes/esdata/*
+	docker volume rm esdata
 
 .PHONY: all build re down clean fclean
